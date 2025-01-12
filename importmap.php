@@ -25,4 +25,23 @@ return [
     '@hotwired/turbo' => [
         'version' => '7.3.0',
     ],
+    'bootstrap' => [
+        'version' => '5.3.3',
+    ],
+    '@popperjs/core' => [
+        'version' => '2.11.8',
+    ],
+    'bootstrap/dist/css/bootstrap.min.css' => [
+        'version' => '5.3.3',
+        'type' => 'css',
+    ],
+    'highlight.js/lib/core' => [
+        'version' => '11.11.1',
+    ],
+    'highlight.js/lib/languages/javascript' => [
+        'version' => '11.11.1',
+    ],
+    'jquery' => [
+        'version' => '3.7.1',
+    ],
 ];

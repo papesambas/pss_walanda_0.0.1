@@ -7,4 +7,24 @@ import './bootstrap.js';
  */
 import './styles/app.css';
 
+import { Alert } from 'bootstrap';
+// ...
+import hljs from 'highlight.js/lib/core';
+import javascript from 'highlight.js/lib/languages/javascript';
+
+hljs.registerLanguage('javascript', javascript);
+hljs.highlightAll();
+
+import $ from 'jquery';
+// things on "window" become global variables
+window.$ = $;
+
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
+
+
+
+//$(document).ready(function () {
+//    $('#jquery-button').on('click', function () {
+//        $('#jquery-result').text('Le bouton a été cliqué, jQuery est bien actif !');
+//    });
+//});
