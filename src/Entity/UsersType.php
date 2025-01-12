@@ -6,6 +6,7 @@ use App\Repository\UsersTypeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UsersTypeRepository::class)]
 class UsersType
@@ -15,7 +16,9 @@ class UsersType
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 75)]
+    #[ORM\Column(length: 75, unique:true)]
+    #[Assert\NotBlank(message: "La désignation ne peut pas être vide.")]
+    #[Assert\Length(max: 75, maxMessage: "La désignation ne peut pas dépasser {{ limit }} caractères.")]
     private ?string $designation = null;
 
     /**
