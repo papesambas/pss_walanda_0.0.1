@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Pères{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="mb-4">Liste des Pères</h1>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Id</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Profession</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pere in peres %}
+                    <tr>
+                        <td>{{ pere.id }}</td>
+                        <td>{{ pere.nom }}</td>
+                        <td>{{ pere.prenom }}</td>
+                        <td>{{ pere.profession ? pere.profession : 'Non défini' }}</td>
+                        <td>
+                            <a href="{{ path('app_peres_show', {'id': pere.id}) }}" 
+                               class="btn btn-info btn-sm">Voir</a>
+                            <a href="{{ path('app_peres_edit', {'id': pere.id}) }}" 
+                               class="btn btn-warning btn-sm">Modifier</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5" class="text-center">Aucun enregistrement trouvé.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-end">
+        <a href="{{ path('app_peres_new') }}" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Ajouter un nouveau père
+        </a>
+    </div>
+</div>
+{% endblock %}

@@ -2,6 +2,9 @@
 
 namespace App\Entity;
 
+use App\Entity\Trait\CreatedAtTrait;
+use App\Entity\Trait\EntityTrackingTrait;
+use App\Entity\Trait\SlugTrait;
 use App\Repository\UsersRepository;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -15,6 +18,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
 class Users implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    use CreatedAtTrait;
+    use SlugTrait;
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -58,8 +63,16 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToOne(inversedBy: 'users')]
     private ?UsersType $type = null;
 
+    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    private ?Eleves $eleves = null;
+
     public function __construct()
     {
+    }
+
+    public function __toString()
+    {
+        return $this->username ?? "";
     }
 
     public function getId(): ?int
@@ -217,6 +230,28 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     public function setType(?UsersType $type): static
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getEleves(): ?Eleves
+    {
+        return $this->eleves;
+    }
+
+    public function setEleves(?Eleves $eleves): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($eleves === null && $this->eleves !== null) {
+            $this->eleves->setUser(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($eleves !== null && $eleves->getUser() !== $this) {
+            $eleves->setUser($this);
+        }
+
+        $this->eleves = $eleves;
 
         return $this;
     }

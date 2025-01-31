@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Régions{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="mb-4">Liste des Régions</h1>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Id</th>
+                    <th>Désignation</th>
+                    <th>Date de Création</th>
+                    <th>Date de Modification</th>
+                    <th>Slug</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for region in regions %}
+                    <tr>
+                        <td>{{ region.id }}</td>
+                        <td>{{ region.designation }}</td>
+                        <td>{{ region.createdAt ? region.createdAt|date('d/m/Y H:i') : 'Non défini' }}</td>
+                        <td>{{ region.updatedAt ? region.updatedAt|date('d/m/Y H:i') : 'Non défini' }}</td>
+                        <td>{{ region.slug }}</td>
+                        <td>
+                            <a href="{{ path('app_regions_show', {'id': region.id}) }}" 
+                               class="btn btn-info btn-sm">Voir</a>
+                            <a href="{{ path('app_regions_edit', {'id': region.id}) }}" 
+                               class="btn btn-warning btn-sm">Modifier</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center text-muted">Aucune région trouvée.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-end">
+        <a href="{{ path('app_regions_new') }}" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Ajouter une nouvelle région
+        </a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cercles index{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="mb-4">Cercles index</h1>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Id</th>
+                    <th>Région</th>
+                    <th>Cercle de :</th>
+                    {#<th>CreatedAt</th>
+                    <th>UpdatedAt</th>
+                    <th>Slug</th>#}
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for cercle in cercles %}
+                <tr>
+                    <td>{{ cercle.id }}</td>
+                    <td>{{ cercle.region }}</td>
+                    <td>{{ cercle.designation }}</td>
+                    {#<td>{{ cercle.createdAt ? cercle.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ cercle.updatedAt ? cercle.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ cercle.slug }}</td>#}
+                    <td>
+                        <a href="{{ path('app_cercles_show', {'id': cercle.id}) }}" class="btn btn-info btn-sm">Voir</a>
+                        <a href="{{ path('app_cercles_edit', {'id': cercle.id}) }}" class="btn btn-warning btn-sm">Modifier</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6" class="text-center">Aucun cercle trouvé</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-end">
+        <a href="{{ path('app_cercles_new') }}" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Créer un nouveau cercle
+        </a>
+    </div>
+</div>
+{% endblock %}

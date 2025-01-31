@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}StatutEleves{% endblock %}
+
+{% block body %}
+    <h1>StatutEleves</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ statut_elefe.id }}</td>
+            </tr>
+            <tr>
+                <th>Designation</th>
+                <td>{{ statut_elefe.designation }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ statut_elefe.createdAt ? statut_elefe.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ statut_elefe.updatedAt ? statut_elefe.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Slug</th>
+                <td>{{ statut_elefe.slug }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_statut_eleves_index') }}">back to list</a>
+
+    <a href="{{ path('app_statut_eleves_edit', {'id': statut_elefe.id}) }}">edit</a>
+
+    {{ include('statut_eleves/_delete_form.html.twig') }}
+{% endblock %}

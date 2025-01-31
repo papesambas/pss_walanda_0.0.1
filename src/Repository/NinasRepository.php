@@ -31,6 +31,23 @@ class NinasRepository extends ServiceEntityRepository
     //        ;
     //    }
 
+        /**
+         * @return Ninas[] Returns an array of Ninas objects
+         */
+        public function findAll(?int $value = null): array
+        {
+            // Si $value est null, utiliser 0 comme valeur par défaut
+            $offset = $value ?? 0;
+        
+            return $this->createQueryBuilder('n')
+                ->orderBy('n.id', 'ASC')
+                ->setFirstResult($offset) // Utiliser le décalage
+                ->getQuery()
+                ->getResult();
+        }
+
+
+
     //    public function findOneBySomeField($value): ?Ninas
     //    {
     //        return $this->createQueryBuilder('n')

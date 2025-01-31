@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cycles index{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="mb-4">Cycles index</h1>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Id</th>
+                    <th>Etablissement</th>
+                    <th>Cycles</th>
+                    <th>Capacite</th>
+                    <th>Effectif</th>
+                    <th>Disponibilite</th>
+                    {#<th>CreatedAt</th>
+                    <th>UpdatedAt</th>
+                    <th>Slug</th>#}
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for cycle in cycles %}
+                <tr>
+                    <td>{{ cycle.id }}</td>
+                    <td>{{ cycle.etablissement }}</td>
+                    <td>{{ cycle.designation }}</td>
+                    <td>{{ cycle.capacite }}</td>
+                    <td>{{ cycle.effectif }}</td>
+                    <td>{{ cycle.disponibilite }}</td>
+                    {#<td>{{ cycle.createdAt ? cycle.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ cycle.updatedAt ? cycle.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ cycle.slug }}</td>#}
+                    <td>
+                        <a href="{{ path('app_cycles_niveaux_index', {'slug': cycle.slug}) }}" class="btn btn-info btn-sm">Voir</a>
+                        {#<a href="{{ path('app_cycles_show', {'id': cycle.id}) }}" class="btn btn-info btn-sm">Voir</a>#}
+                        <a href="{{ path('app_cycles_edit', {'id': cycle.id}) }}" class="btn btn-warning btn-sm">Modifier</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="9" class="text-center">Aucun cycle trouvé</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-end">
+        <a href="{{ path('app_cycles_new') }}" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Créer un nouveau cycle
+        </a>
+    </div>
+</div>
+{% endblock %}

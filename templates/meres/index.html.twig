@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mères{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="mb-4">Liste des Mères</h1>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Id</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Profession</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for mere in meres %}
+                <tr>
+                    <td>{{ mere.id }}</td>
+                    <td>{{ mere.nom }}</td>
+                    <td>{{ mere.prenom }}</td>
+                    <td>{{ mere.profession ? mere.profession.designation : 'Non défini' }}</td>
+                    <td>
+                        <a href="{{ path('app_meres_show', {'id': mere.id}) }}" 
+                           class="btn btn-info btn-sm">Voir</a>
+                        <a href="{{ path('app_meres_edit', {'id': mere.id}) }}" 
+                           class="btn btn-warning btn-sm">Modifier</a>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="5" class="text-center">Aucun enregistrement trouvé.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-end">
+        <a href="{{ path('app_meres_new') }}" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Ajouter une nouvelle
+        </a>
+    </div>
+</div>
+{% endblock %}

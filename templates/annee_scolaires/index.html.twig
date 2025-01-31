@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}AnneeScolaires index{% endblock %}
+
+{% block body %}
+    <h1>AnneeScolaires index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Designation</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>Slug</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for annee_scolaire in annee_scolaires %}
+            <tr>
+                <td>{{ annee_scolaire.id }}</td>
+                <td>{{ annee_scolaire.designation }}</td>
+                <td>{{ annee_scolaire.createdAt ? annee_scolaire.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ annee_scolaire.updatedAt ? annee_scolaire.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ annee_scolaire.slug }}</td>
+                <td>
+                    <a href="{{ path('app_annee_scolaires_show', {'id': annee_scolaire.id}) }}">show</a>
+                    <a href="{{ path('app_annee_scolaires_edit', {'id': annee_scolaire.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_annee_scolaires_new') }}">Create new</a>
+{% endblock %}

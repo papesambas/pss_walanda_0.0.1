@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Téléphones{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="mb-4">Liste des Téléphones</h1>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Numéro Malitel</th>
+                    <th>Numéro Orange</th>
+                    <th>Date de Création</th>
+                    <th>Date de Modification</th>
+                    <th>Slug</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for telephone in telephones %}
+                    <tr>
+                        <td>{{ telephone.id }}</td>
+                        <td>{{ telephone.malitel }}</td>
+                        <td>{{ telephone.orange }}</td>
+                        <td>{{ telephone.createdAt ? telephone.createdAt|date('d/m/Y H:i') : 'Non défini' }}</td>
+                        <td>{{ telephone.updatedAt ? telephone.updatedAt|date('d/m/Y H:i') : 'Non défini' }}</td>
+                        <td>{{ telephone.slug }}</td>
+                        <td>
+                            <a href="{{ path('app_telephones_show', {'id': telephone.id}) }}" 
+                               class="btn btn-info btn-sm">Voir</a>
+                            <a href="{{ path('app_telephones_edit', {'id': telephone.id}) }}" 
+                               class="btn btn-warning btn-sm">Modifier</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="7" class="text-center text-muted">Aucun téléphone trouvé.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-end">
+        <a href="{{ path('app_telephones_new') }}" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Ajouter un nouveau téléphone
+        </a>
+    </div>
+</div>
+{% endblock %}

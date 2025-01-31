@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Enseignements index{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="mb-4">Enseignements index</h1>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Id</th>
+                    <th>Designation</th>
+                    <th>Capacite</th>
+                    <th>Effectif</th>
+                    {#<th>CreatedAt</th>
+                    <th>UpdatedAt</th>
+                    <th>Slug</th>#}
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for enseignement in enseignements %}
+                <tr>
+                    <td>{{ enseignement.id }}</td>
+                    <td>{{ enseignement.designation }}</td>
+                    <td>{{ enseignement.capacite }}</td>
+                    <td>{{ enseignement.effectif }}</td>
+                    {#<td>{{ enseignement.createdAt ? enseignement.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ enseignement.updatedAt ? enseignement.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ enseignement.slug }}</td>#}
+                    <td>
+                        <a href="{{ path('app_enseignements_etablissements_index', {'slug': enseignement.slug}) }}" class="btn btn-info btn-sm">Etablissements</a>
+                        <a href="{{ path('app_enseignements_show', {'id': enseignement.id}) }}" class="btn btn-info btn-sm">Voir</a>
+                        <a href="{{ path('app_enseignements_edit', {'id': enseignement.id}) }}" class="btn btn-warning btn-sm">Modifier</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="8" class="text-center">Aucun enseignement trouvé</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-end">
+        <a href="{{ path('app_enseignements_new') }}" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Créer un nouvel enseignement
+        </a>
+    </div>
+</div>
+{% endblock %}

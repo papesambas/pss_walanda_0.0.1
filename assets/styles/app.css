@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap');
 
+
 /* Définir la police par défaut pour le corps du texte */
 body {
     font-family: 'Roboto', sans-serif;
@@ -115,3 +116,25 @@ form button {
         padding: 1rem 5%;
     }
 }
+
+.table-sm td, .table-sm th {
+    padding: 0.25rem;  /* Réduit la taille des espaces internes */
+}
+
+.table-responsive {
+    margin-top: 20px;
+    overflow-x: auto;
+}
+
+.table th, .table td {
+    vertical-align: middle;  /* Aligne le texte au centre verticalement */
+}
+
+h1.text-primary {
+    margin-bottom: 10px;  /* Ajuste la valeur à tes besoins */
+}
+
+#limit {
+    height: auto; /* Laisse le navigateur ajuster la hauteur en fonction du contenu */
+}
+

@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Classes index{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="mb-4">Liste des Classes</h1>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Id</th>
+                    <th>Etablissement</th>
+                    <th>Cycle</th>
+                    <th>Designation</th>
+                    <th>Capacite</th>
+                    <th>Effectif</th>
+                    <th>Disponibilite</th>
+                    {#<th>CreatedAt</th>
+                    <th>UpdatedAt</th>
+                    <th>Slug</th>#}
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for class in classes %}
+                    <tr>
+                        <td>{{ class.id }}</td>
+                        <td>{{ class.niveau.cycle.etablissement }}</td>
+                        <td>{{ class.niveau.cycle }}</td>
+                        <td>{{ class.designation }}</td>
+                        <td>{{ class.capacite }}</td>
+                        <td>{{ class.effectif }}</td>
+                        <td>{{ class.disponibilite }}</td>
+                        {#<td>{{ class.createdAt ? class.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                        <td>{{ class.updatedAt ? class.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                        <td>{{ class.slug }}</td>#}
+                        <td>
+                            <a href="{{ path('app_classes_eleves_index', {'slug': class.slug}) }}" class="btn btn-info btn-sm">Voir</a>
+                            {#<a href="{{ path('app_classes_show', {'id': class.id}) }}" class="btn btn-info btn-sm">Voir</a>#}
+                            <a href="{{ path('app_classes_edit', {'id': class.id}) }}" class="btn btn-warning btn-sm">Modifier</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="9" class="text-center">Aucune classe trouvée</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-end">
+        <a href="{{ path('app_classes_new') }}" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Ajouter une nouvelle classe
+        </a>
+    </div>
+</div>
+{% endblock %}

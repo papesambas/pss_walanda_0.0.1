@@ -2,6 +2,9 @@
 
 namespace App\Entity;
 
+use App\Entity\Trait\CreatedAtTrait;
+use App\Entity\Trait\EntityTrackingTrait;
+use App\Entity\Trait\SlugTrait;
 use App\Repository\StatutElevesRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -9,6 +12,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: StatutElevesRepository::class)]
 class StatutEleves
 {
+    use CreatedAtTrait;
+    use EntityTrackingTrait;
+    use SlugTrait;
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -18,6 +24,11 @@ class StatutEleves
     #[Assert\NotBlank(message: "La désignation ne peut pas être vide.")]
     #[Assert\Length(max: 150, maxMessage: "La désignation ne peut pas dépasser {{ limit }} caractères.")]
     private ?string $designation = null;
+
+    public function __toString()
+    {
+        return $this->designation ?? "";
+    }
 
     public function getId(): ?int
     {

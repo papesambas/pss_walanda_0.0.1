@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Niveaux index{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="mb-4">Niveaux index</h1>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Id</th>
+                    <th>Etablissement</th>
+                    <th>Cycle</th>
+                    <th>Niveau</th>
+                    <th>Capacite</th>
+                    <th>Effectif</th>
+                    <th>Disponibilite</th>
+                    {#<th>CreatedAt</th>
+                    <th>UpdatedAt</th>
+                    <th>Slug</th>#}
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for niveau in niveauxes %}
+                <tr>
+                    <td>{{ niveau.id }}</td>
+                    <td>{{ niveau.cycle.etablissement }}</td>
+                    <td>{{ niveau.cycle }}</td>
+                    <td>{{ niveau.designation }}</td>
+                    <td>{{ niveau.capacite }}</td>
+                    <td>{{ niveau.effectif }}</td>
+                    <td>{{ niveau.disponibilite }}</td>
+                    {#<td>{{ niveau.createdAt ? niveau.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ niveau.updatedAt ? niveau.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ niveau.slug }}</td>#}
+                    <td>
+                        <a href="{{ path('app_niveau_classes_index', {'slug': niveau.slug}) }}" class="btn btn-info btn-sm">Voir</a>
+                        {#<a href="{{ path('app_niveaux_show', {'id': niveau.id}) }}" class="btn btn-info btn-sm">Voir</a>#}
+                        <a href="{{ path('app_niveaux_edit', {'id': niveau.id}) }}" class="btn btn-warning btn-sm">Modifier</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="9" class="text-center">Aucun niveau trouvé</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-end">
+        <a href="{{ path('app_niveaux_new') }}" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Créer un nouveau niveau
+        </a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Noms{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="mb-4">Liste des Noms</h1>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Id</th>
+                    <th>Désignation</th>
+                    <th>Date de création</th>
+                    <th>Date de mise à jour</th>
+                    <th>Slug</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for nom in noms %}
+                    <tr>
+                        <td>{{ nom.id }}</td>
+                        <td>{{ nom.designation }}</td>
+                        <td>{{ nom.createdAt ? nom.createdAt|date('d-m-Y H:i:s') : 'Non défini' }}</td>
+                        <td>{{ nom.updatedAt ? nom.updatedAt|date('d-m-Y H:i:s') : 'Non défini' }}</td>
+                        <td>{{ nom.slug }}</td>
+                        <td>
+                            <a href="{{ path('app_noms_show', {'id': nom.id}) }}" 
+                               class="btn btn-info btn-sm">Voir</a>
+                            <a href="{{ path('app_noms_edit', {'id': nom.id}) }}" 
+                               class="btn btn-warning btn-sm">Modifier</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center">Aucun enregistrement trouvé.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-end">
+        <a href="{{ path('app_noms_new') }}" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Ajouter un nouveau nom
+        </a>
+    </div>
+</div>
+{% endblock %}

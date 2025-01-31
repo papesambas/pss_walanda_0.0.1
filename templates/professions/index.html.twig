@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Professions{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="mb-4">Liste des Professions</h1>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Id</th>
+                    <th>Désignation</th>
+                    <th>Pères</th>
+                    <th>Mères</th>
+                    <th>Date de Création</th>
+                    <th>Date de Modification</th>
+                    <th>Slug</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for profession in professions %}
+                <tr>
+                    <td>{{ profession.id }}</td>
+                    <td>{{ profession.designation }}</td>
+                    <td>
+                        {% if profession.peres is not empty %}
+                            <ul class="list-unstyled">
+                                {% for pere in profession.peres %}
+                                    <li>{{ pere.prenom }} {{ pere.nom }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <span class="text-muted">Aucune information disponible</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if profession.meres is not empty %}
+                            <ul class="list-unstyled">
+                                {% for mere in profession.meres %}
+                                    <li>{{ mere.prenom }} {{ mere.nom }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <span class="text-muted">Aucune information disponible</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ profession.createdAt ? profession.createdAt|date('d/m/Y H:i') : 'Non défini' }}</td>
+                    <td>{{ profession.updatedAt ? profession.updatedAt|date('d/m/Y H:i') : 'Non défini' }}</td>
+                    <td>{{ profession.slug }}</td>
+                    <td>
+                        <a href="{{ path('app_professions_show', {'id': profession.id}) }}" 
+                           class="btn btn-info btn-sm">Voir</a>
+                        <a href="{{ path('app_professions_edit', {'id': profession.id}) }}" 
+                           class="btn btn-warning btn-sm">Modifier</a>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="8" class="text-center text-muted">Aucune profession trouvée.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-end">
+        <a href="{{ path('app_professions_new') }}" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Ajouter une nouvelle profession
+        </a>
+    </div>
+</div>
+{% endblock %}

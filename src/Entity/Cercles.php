@@ -1,6 +1,9 @@
 <?php
 namespace App\Entity;
 
+use App\Entity\Trait\CreatedAtTrait;
+use App\Entity\Trait\EntityTrackingTrait;
+use App\Entity\Trait\SlugTrait;
 use App\Repository\CerclesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -10,6 +13,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: CerclesRepository::class)]
 class Cercles
 {
+    use CreatedAtTrait;
+    use EntityTrackingTrait;
+    use SlugTrait;
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -23,11 +29,11 @@ class Cercles
     /**
      * @var Collection<int, Communes>
      */
-    #[ORM\OneToMany(targetEntity: Communes::class, mappedBy: 'cercle')]
+    #[ORM\OneToMany(targetEntity: Communes::class, mappedBy: 'cercle', cascade: ['persist', 'remove'])]
     private Collection $communes;
 
     #[ORM\ManyToOne(inversedBy: 'cercles')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete:'CASCADE')]
     private ?Regions $region = null;
 
     public function __construct()

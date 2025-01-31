@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Prénoms{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="mb-4">Liste des Prénoms</h1>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Id</th>
+                    <th>Désignation</th>
+                    <th>Date de Création</th>
+                    <th>Date de Modification</th>
+                    <th>Slug</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for prenom in prenoms %}
+                    <tr>
+                        <td>{{ prenom.id }}</td>
+                        <td>{{ prenom.designation }}</td>
+                        <td>{{ prenom.createdAt ? prenom.createdAt|date('d/m/Y H:i') : 'Non défini' }}</td>
+                        <td>{{ prenom.updatedAt ? prenom.updatedAt|date('d/m/Y H:i') : 'Non défini' }}</td>
+                        <td>{{ prenom.slug }}</td>
+                        <td>
+                            <a href="{{ path('app_prenoms_show', {'id': prenom.id}) }}" 
+                               class="btn btn-info btn-sm">Voir</a>
+                            <a href="{{ path('app_prenoms_edit', {'id': prenom.id}) }}" 
+                               class="btn btn-warning btn-sm">Modifier</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center">Aucun prénom trouvé.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-end">
+        <a href="{{ path('app_prenoms_new') }}" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Ajouter un nouveau prénom
+        </a>
+    </div>
+</div>
+{% endblock %}

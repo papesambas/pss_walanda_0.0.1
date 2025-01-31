@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Statuts des Élèves{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="mb-4">Liste des Statuts des Élèves</h1>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Désignation</th>
+                    <th>Date de Création</th>
+                    <th>Date de Modification</th>
+                    <th>Slug</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for statut_eleve in statut_eleves %}
+                    <tr>
+                        <td>{{ statut_eleve.id }}</td>
+                        <td>{{ statut_eleve.designation }}</td>
+                        <td>{{ statut_eleve.createdAt ? statut_eleve.createdAt|date('d/m/Y H:i') : 'Non défini' }}</td>
+                        <td>{{ statut_eleve.updatedAt ? statut_eleve.updatedAt|date('d/m/Y H:i') : 'Non défini' }}</td>
+                        <td>{{ statut_eleve.slug }}</td>
+                        <td>
+                            <a href="{{ path('app_statut_eleves_show', {'id': statut_eleve.id}) }}" 
+                               class="btn btn-info btn-sm">Voir</a>
+                            <a href="{{ path('app_statut_eleves_edit', {'id': statut_eleve.id}) }}" 
+                               class="btn btn-warning btn-sm">Modifier</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center text-muted">Aucun statut trouvé.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-end">
+        <a href="{{ path('app_statut_eleves_new') }}" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Ajouter un nouveau statut
+        </a>
+    </div>
+</div>
+{% endblock %}

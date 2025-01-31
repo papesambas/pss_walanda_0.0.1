@@ -16,6 +16,21 @@ class TelephonesRepository extends ServiceEntityRepository
         parent::__construct($registry, Telephones::class);
     }
 
+    /**
+     * @return Telephones[] Returns an array of Telephones objects
+     */
+    public function findAll(?int $value = null): array
+    {
+        // Si $value est null, utiliser 0 comme valeur par défaut
+        $offset = $value ?? 0;
+
+        return $this->createQueryBuilder('t')
+            ->orderBy('t.id', 'ASC')
+            ->setFirstResult($offset) // Utiliser le décalage
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return Telephones[] Returns an array of Telephones objects
     //     */

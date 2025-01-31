@@ -1,0 +1,33 @@
+# Documentation : https://symfony.com/doc/current/bundles/FOSCKEditorBundle/index.html
+
+twig:
+    form_themes:
+        - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
+
+fos_ck_editor:
+    default_config: default
+    configs:
+        # Configuration par défaut (global)
+        default:
+            language: 'fr'
+            toolbar: standard
+            uiColor: '#AADC6E'
+            extraPlugins: 'image2,widget,uploadimage'
+            removePlugins: 'elementspath'
+            filebrowserUploadUrl: '/file-manager/upload' # Permet l'upload de fichiers
+
+        # Configuration pour l'anglais
+        english:
+            toolbar: standard
+            language: 'en'
+            uiColor: '#FFFFF'
+
+        # Configuration personnalisée (plus riche)
+        custom:
+            toolbar:
+                - [ 'Bold', 'Italic', 'Underline', 'Strike', '-', 'Subscript', 'Superscript' ]
+                - [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent' ]
+                - [ 'Link', 'Unlink', 'Image' ]
+            uiColor: '#9AB8F3'
+            extraPlugins: 'justify,colorbutton,font'
+            contentsCss: ['/css/ckeditor_styles.css']

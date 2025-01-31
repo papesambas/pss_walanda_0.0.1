@@ -2,6 +2,9 @@
 
 namespace App\Entity;
 
+use App\Entity\Trait\CreatedAtTrait;
+use App\Entity\Trait\EntityTrackingTrait;
+use App\Entity\Trait\SlugTrait;
 use App\Repository\AnneeScolairesRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -9,6 +12,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: AnneeScolairesRepository::class)]
 class AnneeScolaires
 {
+    use CreatedAtTrait;
+    use EntityTrackingTrait;
+    use SlugTrait;
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

@@ -8,6 +8,11 @@ import './bootstrap.js';
 import './styles/app.css';
 
 import { Alert } from 'bootstrap';
+import * as bootstrap from 'bootstrap'; // Importation correcte de Bootstrap
+
+// assets/app.js
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 // ...
 import hljs from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';

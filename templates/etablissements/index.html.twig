@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Etablissements index{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="mb-4">Etablissements index</h1>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Id</th>
+                    <th>Enseignement</th>
+                    <th>Etablissement</th>
+                    {#<th>FormeJuridique</th>
+                    <th>NumDecisionCreation</th>
+                    <th>NumDecisionOuverture</th>
+                    <th>DateOuverture</th>
+                    <th>NumSocial</th>
+                    <th>NumFiscal</th>
+                    <th>NumCpteBancaire</th>#}
+                    <th>Adresse</th>
+                    <th>Telephone</th>
+                    {#<th>TelephoneMobile</th>#}
+                    <th>Email</th>
+                    {#<th>Capacite</th>
+                    <th>Effectif</th>
+                    {<th>CreatedAt</th>
+                    <th>UpdatedAt</th>
+                    <th>Slug</th>#}
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for etablissement in etablissements %}
+                <tr>
+                    <td>{{ etablissement.id }}</td>
+                    <td>{{ etablissement.enseignement }}</td>
+                    <td>{{ etablissement.designation }}</td>
+                    {#<td>{{ etablissement.formeJuridique }}</td>
+                    <td>{{ etablissement.numDecisionCreation }}</td>
+                    <td>{{ etablissement.numDecisionOuverture }}</td>
+                    <td>{{ etablissement.dateOuverture ? etablissement.dateOuverture|date('Y-m-d') : '' }}</td>
+                    <td>{{ etablissement.numSocial }}</td>
+                    <td>{{ etablissement.numFiscal }}</td>
+                    <td>{{ etablissement.numCpteBancaire }}</td>#}
+                    <td>{{ etablissement.adresse }}</td>
+                    <td>{{ etablissement.telephone }}</td>
+                    {#<td>{{ etablissement.telephoneMobile }}</td>#}
+                    <td>{{ etablissement.email }}</td>
+                    {#<td>{{ etablissement.capacite }}</td>
+                    <td>{{ etablissement.effectif }}</td>
+                    <td>{{ etablissement.createdAt ? etablissement.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ etablissement.updatedAt ? etablissement.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ etablissement.slug }}</td>#}
+                    <td>
+                        <a href="{{ path('app_etablissements_cycles_index', {'slug': etablissement.slug}) }}" class="btn btn-info btn-sm">Cycles</a>
+                        <a href="{{ path('app_etablissements_show', {'id': etablissement.id}) }}" class="btn btn-info btn-sm">Voir</a>
+                        <a href="{{ path('app_etablissements_edit', {'id': etablissement.id}) }}" class="btn btn-warning btn-sm">Modifier</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="19" class="text-center">Aucun établissement trouvé</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-end">
+        <a href="{{ path('app_etablissements_new') }}" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Créer un nouvel établissement
+        </a>
+    </div>
+</div>
+{% endblock %}

@@ -2,6 +2,9 @@
 
 namespace App\Entity;
 
+use App\Entity\Trait\CreatedAtTrait;
+use App\Entity\Trait\EntityTrackingTrait;
+use App\Entity\Trait\SlugTrait;
 use App\Repository\UsersTypeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -11,6 +14,9 @@ use symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: UsersTypeRepository::class)]
 class UsersType
 {
+    use CreatedAtTrait;
+    use EntityTrackingTrait;
+    use SlugTrait;
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -31,6 +37,12 @@ class UsersType
     {
         $this->users = new ArrayCollection();
     }
+
+    public function __toString(): string
+    {
+        return $this->designation ?? '';
+    }
+
 
     public function getId(): ?int
     {

@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Lieu de Naissance{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h1 class="mb-4">Liste des Lieux de Naissance</h1>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-hover table-sm">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Id</th>
+                        <th>Région</th>
+                        <th>Cercle</th>
+                        <th>Commune</th>
+                        <th>Désignation</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for lieu_naissance in lieu_naissances %}
+                    <tr>
+                        <td>{{ lieu_naissance.id }}</td>
+                        <td>{{ lieu_naissance.commune.cercle.region }}</td>
+                        <td>{{ lieu_naissance.commune.cercle }}</td>
+                        <td>{{ lieu_naissance.commune }}</td>
+                        <td>{{ lieu_naissance.designation }}</td>
+                        <td>
+                            <a href="{{ path('app_lieu_naissances_show', {'id': lieu_naissance.id}) }}" 
+                               class="btn btn-info btn-sm" title="Voir les détails">Voir</a>
+                            <a href="{{ path('app_lieu_naissances_edit', {'id': lieu_naissance.id}) }}" 
+                               class="btn btn-warning btn-sm" title="Modifier">Modifier</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center">Aucun enregistrement trouvé.</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="text-end">
+            <a href="{{ path('app_lieu_naissances_new') }}" class="btn btn-success">
+                <i class="bi bi-plus-circle"></i> Ajouter un nouveau
+            </a>
+        </div>
+    </div>
+{% endblock %}

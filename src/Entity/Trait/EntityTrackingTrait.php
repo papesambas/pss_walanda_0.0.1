@@ -7,11 +7,11 @@ use App\Entity\Users;
 
 trait EntityTrackingTrait
 {
-    #[ORM\ManyToOne(targetEntity: Users::class, cascade:['remove'])]
+    #[ORM\ManyToOne(targetEntity: Users::class)]
     #[ORM\JoinColumn(nullable: true)]
     private ?Users $createdBy = null;
 
-    #[ORM\ManyToOne(targetEntity: Users::class, cascade:['remove'])]
+    #[ORM\ManyToOne(targetEntity: Users::class)]
     #[ORM\JoinColumn(nullable: true)]
     private ?Users $updatedBy = null;
 
