@@ -76,11 +76,18 @@ class Niveaux
     #[ORM\OneToMany(targetEntity: Scolarites2::class, mappedBy: 'niveau', cascade : ['persist'])]
     private Collection $scolarites2s;
 
+    /**
+     * @var Collection<int, StatutEleves>
+     */
+    #[ORM\ManyToMany(targetEntity: StatutEleves::class, mappedBy: 'niveau')]
+    private Collection $statutEleves;
+
     public function __construct()
     {
         $this->classes = new ArrayCollection();
         $this->scolarites1s = new ArrayCollection();
         $this->scolarites2s = new ArrayCollection();
+        $this->statutEleves = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -262,6 +269,33 @@ class Niveaux
             if ($scolarites2->getNiveau() === $this) {
                 $scolarites2->setNiveau(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, StatutEleves>
+     */
+    public function getStatutEleves(): Collection
+    {
+        return $this->statutEleves;
+    }
+
+    public function addStatutElefe(StatutEleves $statutElefe): static
+    {
+        if (!$this->statutEleves->contains($statutElefe)) {
+            $this->statutEleves->add($statutElefe);
+            $statutElefe->addNiveau($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStatutElefe(StatutEleves $statutElefe): static
+    {
+        if ($this->statutEleves->removeElement($statutElefe)) {
+            $statutElefe->removeNiveau($this);
         }
 
         return $this;

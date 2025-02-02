@@ -75,6 +75,9 @@ final class ElevesControllerTest extends WebTestCase
             'elefe[classe]' => 'Testing',
             'elefe[parent]' => 'Testing',
             'elefe[user]' => 'Testing',
+            'elefe[statutEleve]' => 'Testing',
+            'elefe[scolarite1]' => 'Testing',
+            'elefe[scolarite2]' => 'Testing',
             'elefe[createdBy]' => 'Testing',
             'elefe[updatedBy]' => 'Testing',
         ]);
@@ -115,6 +118,9 @@ final class ElevesControllerTest extends WebTestCase
         $fixture->setClasse('My Title');
         $fixture->setParent('My Title');
         $fixture->setUser('My Title');
+        $fixture->setStatutEleve('My Title');
+        $fixture->setScolarite1('My Title');
+        $fixture->setScolarite2('My Title');
         $fixture->setCreatedBy('My Title');
         $fixture->setUpdatedBy('My Title');
 
@@ -160,6 +166,9 @@ final class ElevesControllerTest extends WebTestCase
         $fixture->setClasse('Value');
         $fixture->setParent('Value');
         $fixture->setUser('Value');
+        $fixture->setStatutEleve('Value');
+        $fixture->setScolarite1('Value');
+        $fixture->setScolarite2('Value');
         $fixture->setCreatedBy('Value');
         $fixture->setUpdatedBy('Value');
 
@@ -196,6 +205,9 @@ final class ElevesControllerTest extends WebTestCase
             'elefe[classe]' => 'Something New',
             'elefe[parent]' => 'Something New',
             'elefe[user]' => 'Something New',
+            'elefe[statutEleve]' => 'Something New',
+            'elefe[scolarite1]' => 'Something New',
+            'elefe[scolarite2]' => 'Something New',
             'elefe[createdBy]' => 'Something New',
             'elefe[updatedBy]' => 'Something New',
         ]);
@@ -231,6 +243,9 @@ final class ElevesControllerTest extends WebTestCase
         self::assertSame('Something New', $fixture[0]->getClasse());
         self::assertSame('Something New', $fixture[0]->getParent());
         self::assertSame('Something New', $fixture[0]->getUser());
+        self::assertSame('Something New', $fixture[0]->getStatutEleve());
+        self::assertSame('Something New', $fixture[0]->getScolarite1());
+        self::assertSame('Something New', $fixture[0]->getScolarite2());
         self::assertSame('Something New', $fixture[0]->getCreatedBy());
         self::assertSame('Something New', $fixture[0]->getUpdatedBy());
     }
@@ -266,6 +281,9 @@ final class ElevesControllerTest extends WebTestCase
         $fixture->setClasse('Value');
         $fixture->setParent('Value');
         $fixture->setUser('Value');
+        $fixture->setStatutEleve('Value');
+        $fixture->setScolarite1('Value');
+        $fixture->setScolarite2('Value');
         $fixture->setCreatedBy('Value');
         $fixture->setUpdatedBy('Value');
 

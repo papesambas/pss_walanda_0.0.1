@@ -1,0 +1,177 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Formulaire Élève{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Formulaire d'Inscription des Élèves</h1>
+    <div class="card shadow">
+        <div class="card-body">
+            {{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
+
+            <!-- Section Informations Personnelles -->
+            <div class="mb-4">
+                <h3 class="mb-3">Informations Personnelles</h3>
+                <div class="row">
+                    <div class="col-md-4">
+                        {{ form_row(form.nom, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form_row(form.prenom, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form_label(form.sexe, 'Genre', {'label_attr': {'class': 'form-label'}}) }}
+                        <div class="d-flex">
+                            {% for child in form.sexe %}
+                                <div class="form-check form-check-inline me-3"> <!-- Ajoutez form-check-inline pour l'affichage horizontal -->
+                                    {{ form_widget(child, {'attr': {'class': 'form-check-input '}}) }}
+                                    {{ form_label(child, null, {'label_attr': {'class': 'form-check-label'}}) }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        {{ form_row(form.dateNaissance, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form_row(form.region, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form_row(form.cercle, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form_row(form.commune, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form_row(form.lieuNaissance, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        {{ form_row(form.dateActe, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form_row(form.numActe, {'attr': {'class': 'form-control', 'placeholder': 'Numéro Extrait de Naissance'}})
+                        }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section Informations Scolaires -->
+            <div class="mb-4">
+                <h3 class="mb-3">Informations Scolaires</h3>
+                <div class="row">
+                    <div class="col-md-3">
+                        {{ form_row(form.niveau, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ form_row(form.classe, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    {#<div class="col-md-6">
+                        {{ form_row(form.etablissement, {'attr': {'class': 'form-control'}}) }}
+                    </div>#}
+                </div>
+                <div class="row">
+                    {#<div class="col-md-4">
+                        {{ form_row(form.ecoleInscription, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form_row(form.ecoleAnDernier, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form_row(form.dateInscription, {'attr': {'class': 'form-control'}}) }}
+                    </div>#}
+                </div>
+            </div>
+
+            <!-- Section Informations Administratives -->
+            <div class="mb-4">
+                <h3 class="mb-3">Informations Administratives</h3>
+                <div class="row">
+                    {#<div class="col-md-4">
+                        {{ form_row(form.dateRecrutement, {'attr': {'class': 'form-control'}}) }}
+                    </div>#}
+                </div>
+                <div class="row">
+                    <div class="col-md-4">                        
+                        {{ form_label(form.statutFinance) }}
+                        <div class="d-flex">
+                            {% for child in form.statutFinance %}
+                            <div class="form-check me-3">
+                                {{ form_widget(child, {
+                                    'attr': {'class': 'form-check-input'},
+                                    'checked': child.vars.value == form.vars.value.statutFinance                                    
+                                }) }}
+                                {{ form_label(child, null, {'label_attr': {'class': 'form-check-label'}}) }}
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section Cases à cocher -->
+            <div class="mb-4">
+                <h3 class="mb-3">Statut</h3>
+                <div class="row">
+                    {#<div class="col-md-8">
+                        <div class="d-flex align-items-center">
+                            <div class="form-check me-3">
+                                {{ form_widget(form.isActif, {'attr': {'class': 'form-check-input'}}) }}
+                                {{ form_label(form.isActif, null, {'label_attr': {'class': 'form-check-label'}}) }}
+                            </div>
+                            <div class="form-check me-3">
+                                {{ form_widget(form.isAdmin, {'attr': {'class': 'form-check-input'}}) }}
+                                {{ form_label(form.isAdmin, null, {'label_attr': {'class': 'form-check-label'}}) }}
+                            </div>
+                            <div class="form-check">
+                                {{ form_widget(form.isAllowed, {'attr': {'class': 'form-check-input'}}) }}
+                                {{ form_label(form.isAllowed, null, {'label_attr': {'class': 'form-check-label'}}) }}
+                            </div>
+                        </div>
+                    </div>#}
+                </div>
+            </div>
+
+
+            <!-- Section Handicap -->
+            <div class="mb-4">
+                <h3 class="mb-3">Informations sur le Handicap</h3>
+                <div class="row">
+                    <div class="col-md-4">
+                        {{ form_row(form.isHandicap, {'attr': {'class': 'form-check-input'}}) }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form_row(form.natureHandicape, {'attr': {'class': 'form-control', 'placeholder': 'Nature du handicap'}})
+                        }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section Fichiers -->
+            <div class="mb-4">
+                <h3 class="mb-3">Téléchargement de Fichiers</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form_row(form.imageFile, {'attr': {'class': 'form-control-file'}}) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_row(form.document, {'attr': {'class': 'form-control-file'}}) }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bouton de Soumission -->
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary btn-lg">{{ button_label|default('Enregistrer') }}</button>
+            </div>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
+{% endblock %}

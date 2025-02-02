@@ -136,6 +136,15 @@ class Eleves
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
+    #[ORM\ManyToOne(inversedBy: 'eleves')]
+    private ?StatutEleves $statutEleve = null;
+
+    #[ORM\ManyToOne(inversedBy: 'eleves')]
+    private ?Scolarites1 $scolarite1 = null;
+
+    #[ORM\ManyToOne(inversedBy: 'eleves')]
+    private ?Scolarites2 $scolarite2 = null;
+
     public function __construct()
     {
         // Si des valeurs par défaut sont nécessaires, vous pouvez les définir ici
@@ -520,5 +529,41 @@ class Eleves
     public function getImageSize(): ?int
     {
         return $this->imageSize;
+    }
+
+    public function getStatutEleve(): ?StatutEleves
+    {
+        return $this->statutEleve;
+    }
+
+    public function setStatutEleve(?StatutEleves $statutEleve): static
+    {
+        $this->statutEleve = $statutEleve;
+
+        return $this;
+    }
+
+    public function getScolarite1(): ?Scolarites1
+    {
+        return $this->scolarite1;
+    }
+
+    public function setScolarite1(?Scolarites1 $scolarite1): static
+    {
+        $this->scolarite1 = $scolarite1;
+
+        return $this;
+    }
+
+    public function getScolarite2(): ?Scolarites2
+    {
+        return $this->scolarite2;
+    }
+
+    public function setScolarite2(?Scolarites2 $scolarite2): static
+    {
+        $this->scolarite2 = $scolarite2;
+
+        return $this;
     }
 }

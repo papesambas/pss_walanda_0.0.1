@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Eleves;
 use App\Form\ElevesType;
 use App\Repository\ElevesRepository;
-use App\Service\eleveService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,15 +15,10 @@ use Symfony\Component\Routing\Attribute\Route;
 final class ElevesController extends AbstractController
 {
     #[Route(name: 'app_eleves_index', methods: ['GET'])]
-    public function index(eleveService $eleveService, Request $request ,ElevesRepository $elevesRepository): Response
+    public function index(ElevesRepository $elevesRepository): Response
     {
-        $eleves = $eleveService->getEleves();
-        $limit = $request->query->getInt('limit', 15); // Transmettre la limite actuelle
-
         return $this->render('eleves/index.html.twig', [
-            //'eleves' => $elevesRepository->findAll(),
-            'eleves' => $eleves,
-            'limit' => $limit,
+            'eleves' => $elevesRepository->findAll(),
         ]);
     }
 
@@ -63,9 +57,9 @@ final class ElevesController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            //$entityManager->flush();
 
-            return $this->redirectToRoute('app_eleves_index', [], Response::HTTP_SEE_OTHER);
+            //return $this->redirectToRoute('app_eleves_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('eleves/edit.html.twig', [

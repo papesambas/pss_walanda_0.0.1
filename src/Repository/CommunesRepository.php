@@ -2,7 +2,9 @@
 
 namespace App\Repository;
 
+use App\Entity\Cercles;
 use App\Entity\Communes;
+use App\Entity\LieuNaissances;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -15,6 +17,39 @@ class CommunesRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Communes::class);
     }
+
+        /**
+         * Summary of findByCercles
+         * @param \App\Entity\Cercles $cercles
+         * @return array
+         */
+        public function findByCercles(Cercles $cercles): array
+        {
+            return $this->createQueryBuilder('c')
+                ->andWhere('c.cercle = :val')
+                ->setParameter('val', $cercles)
+                ->orderBy('c.designation', 'ASC')
+                ->getQuery()
+                ->getResult()
+            ;
+        }
+
+        /**
+         * Summary of findByCercles
+         * @param \App\Entity\Cercles $cercles
+         * @return array
+         */
+        public function findByLieuNaissances(LieuNaissances $lieuNaissances): array
+        {
+            return $this->createQueryBuilder('c')
+                ->andWhere('c.lieuNaissance = :val')
+                ->setParameter('val', $lieuNaissances)
+                ->orderBy('c.designation', 'ASC')
+                ->getQuery()
+                ->getResult()
+            ;
+        }
+
 
     //    /**
     //     * @return Communes[] Returns an array of Communes objects
@@ -30,6 +65,21 @@ class CommunesRepository extends ServiceEntityRepository
     //            ->getResult()
     //        ;
     //    }
+
+        /**
+         * Summary of findOneByLieuNaissances
+         * @param mixed $lieuNaissance
+         */
+        public function findOneByLieuNaissances($lieuNaissance): ?Communes
+        {
+            return $this->createQueryBuilder('c')
+               ->andWhere('c.lieuNaissances = :val')
+                ->setParameter('val', $lieuNaissance)
+                ->getQuery()
+                ->getOneOrNullResult()
+            ;
+        }
+
 
     //    public function findOneBySomeField($value): ?Communes
     //    {

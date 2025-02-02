@@ -31,6 +31,20 @@ class RegionsRepository extends ServiceEntityRepository
     //        ;
     //    }
 
+        /**
+         * Summary of findOneByCercles
+         * @param mixed $cercle
+         */
+        public function findOneByCercles($cercle): ?Regions
+        {
+            return $this->createQueryBuilder('r')
+                ->andWhere('r.cercles = :val')
+                ->setParameter('val', $cercle)
+                ->getQuery()
+                ->getOneOrNullResult()
+            ;
+        }
+
     //    public function findOneBySomeField($value): ?Regions
     //    {
     //        return $this->createQueryBuilder('r')

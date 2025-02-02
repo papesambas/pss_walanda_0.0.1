@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Cercles;
+use App\Entity\Regions;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -15,6 +16,23 @@ class CerclesRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Cercles::class);
     }
+
+        /**
+         * Summary of findByRegions
+         * @param \App\Entity\Regions $regions
+         * @return array
+         */
+        public function findByRegions(Regions $regions): array
+        {
+            return $this->createQueryBuilder('c')
+                ->andWhere('c.region = :val')
+                ->setParameter('val', $regions)
+                ->orderBy('c.designation', 'ASC')
+                ->getQuery()
+                ->getResult()
+            ;
+        }
+
 
     //    /**
     //     * @return Cercles[] Returns an array of Cercles objects
@@ -30,6 +48,20 @@ class CerclesRepository extends ServiceEntityRepository
     //            ->getResult()
     //        ;
     //    }
+
+        /**
+         * Summary of findOneByCommunes
+         * @param mixed $commune
+         */
+        public function findOneByCommunes($commune): ?Cercles
+        {
+            return $this->createQueryBuilder('c')
+                ->andWhere('c.communes = :val')
+                ->setParameter('val', $commune)
+                ->getQuery()
+                ->getOneOrNullResult()
+            ;
+        }
 
     //    public function findOneBySomeField($value): ?Cercles
     //    {

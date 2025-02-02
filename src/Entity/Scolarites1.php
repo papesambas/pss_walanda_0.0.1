@@ -46,12 +46,19 @@ class Scolarites1
     #[ORM\OneToMany(targetEntity: Redoublements3::class, mappedBy: 'scolarite1', cascade : ['persist'])]
     private Collection $redoublements3s;
 
+    /**
+     * @var Collection<int, Eleves>
+     */
+    #[ORM\OneToMany(targetEntity: Eleves::class, mappedBy: 'scolarite1')]
+    private Collection $eleves;
+
     public function __construct()
     {
         $this->scolarites2s = new ArrayCollection();
         $this->redoublements1s = new ArrayCollection();
         $this->redoublements2s = new ArrayCollection();
         $this->redoublements3s = new ArrayCollection();
+        $this->eleves = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -203,6 +210,36 @@ class Scolarites1
             // set the owning side to null (unless already changed)
             if ($redoublements3->getScolarite1() === $this) {
                 $redoublements3->setScolarite1(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Eleves>
+     */
+    public function getEleves(): Collection
+    {
+        return $this->eleves;
+    }
+
+    public function addElefe(Eleves $elefe): static
+    {
+        if (!$this->eleves->contains($elefe)) {
+            $this->eleves->add($elefe);
+            $elefe->setScolarite1($this);
+        }
+
+        return $this;
+    }
+
+    public function removeElefe(Eleves $elefe): static
+    {
+        if ($this->eleves->removeElement($elefe)) {
+            // set the owning side to null (unless already changed)
+            if ($elefe->getScolarite1() === $this) {
+                $elefe->setScolarite1(null);
             }
         }
 

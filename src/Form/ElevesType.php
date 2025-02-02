@@ -2,106 +2,41 @@
 
 namespace App\Form;
 
-use App\Entity\Noms;
-use App\Entity\Users;
-use App\Entity\Eleves;
 use App\Entity\Classes;
+use App\Entity\Eleves;
+use App\Entity\Etablissements;
+use App\Entity\EtablissementsFrequente;
+use App\Entity\LieuNaissances;
+use App\Entity\Noms;
 use App\Entity\Parents;
 use App\Entity\Prenoms;
-use App\Entity\Etablissements;
-use App\Entity\LieuNaissances;
-use App\Entity\EtablissementsFrequente;
+use App\Entity\Scolarites1;
+use App\Entity\Scolarites2;
+use App\Entity\StatutEleves;
+use App\Entity\Users;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Constraints\All;
-use Vich\UploaderBundle\Form\Type\VichImageType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class ElevesType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('imageFile', VichImageType::class, [
-                'label' => "Photo d'identité",
-                //'mapped' => false,
-                'required' => false,
-                'constraints' => [
-                    new File([
-                        'maxSize' => '5M',
-                        'mimeTypes' => [
-                            'image/jpeg',
-                            'image/jpg',
-                            'image/gif',
-                            'image/png',
-                        ]
-                    ])
-                ],
-                'allow_delete' => true,
-                'delete_label' => 'supprimer',
-                'download_uri' => true,
-                'download_label' => 'Télécharger',
-                'image_uri'         => false,
-                'asset_helper' => true,
-            ])
-            ->add('document', FileType::class, [
-                'label' => 'Télécharger Documents (Fichier PDF/Word)',
-                'mapped' => false,
-                'required' => false,
-                'multiple' => true,
-                'constraints' => [
-                    new All([
-                        'constraints' => [
-                            new File([
-                                'maxSize' => '2048k',
-                                'mimeTypes' => [
-                                    'application/pdf',
-                                    'application/x-pdf',
-                                    'application/msword',
-                                    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-                                ],
-                                'mimeTypesMessage' => 'Format valid valid PDF ou word',
-                            ])
-                        ]
-                    ]),
-                ]
-            ])
-            ->add('sexe', ChoiceType::class, [
-                'expanded' => true,
-                'multiple' => false,
-                'choices' => [
-                    'M' => 'Masculin',
-                    'F' => 'Féminin'
-                ],
-                'label_attr' => [
-                    'class' => 'radio-inline'
-                ]
-            ])
-            ->add('dateNaissance', DateType::class, [
-                'label' => 'Date de Naissance',
+            ->add('sexe')
+            ->add('dateNaissance', null, [
                 'widget' => 'single_text',
-                'auto_initialize' => false,
             ])
             ->add('numActe')
-            ->add('dateActe', DateType::class, [
-                'label' => "date d'élaboration",
+            ->add('dateActe', null, [
                 'widget' => 'single_text',
-                'auto_initialize' => false,
             ])
-            ->add('dateRecrutement', DateType::class, [
-                'label' => 'Date de Recrutement',
+            ->add('dateRecrutement', null, [
                 'widget' => 'single_text',
-                'auto_initialize' => false,
             ])
-            ->add('dateInscription', DateType::class, [
-                'label' => "date d'inscription",
+            ->add('dateInscription', null, [
                 'widget' => 'single_text',
-                'auto_initialize' => false,
             ])
             ->add('matricule')
             ->add('isAdmin')
@@ -110,8 +45,15 @@ class ElevesType extends AbstractType
             ->add('isHandicap')
             ->add('natureHandicape')
             ->add('statutFinance')
-            //->add('imageName')
-            //->add('imageSize')
+            ->add('imageName')
+            ->add('imageSize')
+            ->add('updatedAt', null, [
+                'widget' => 'single_text',
+            ])
+            ->add('createdAt', null, [
+                'widget' => 'single_text',
+            ])
+            ->add('slug')
             ->add('nom', EntityType::class, [
                 'class' => Noms::class,
                 'choice_label' => 'id',
@@ -146,6 +88,18 @@ class ElevesType extends AbstractType
             ])
             ->add('user', EntityType::class, [
                 'class' => Users::class,
+                'choice_label' => 'id',
+            ])
+            ->add('statutEleve', EntityType::class, [
+                'class' => StatutEleves::class,
+                'choice_label' => 'id',
+            ])
+            ->add('scolarite1', EntityType::class, [
+                'class' => Scolarites1::class,
+                'choice_label' => 'id',
+            ])
+            ->add('scolarite2', EntityType::class, [
+                'class' => Scolarites2::class,
                 'choice_label' => 'id',
             ])
             ->add('createdBy', EntityType::class, [

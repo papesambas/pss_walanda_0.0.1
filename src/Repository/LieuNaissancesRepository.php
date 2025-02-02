@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Communes;
 use App\Entity\LieuNaissances;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -15,6 +16,18 @@ class LieuNaissancesRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, LieuNaissances::class);
     }
+
+    public function findByCommunes(Communes $communes): array
+    {
+        return $this->createQueryBuilder('l')
+            ->andWhere('l.commune = :val')
+            ->setParameter('val', $communes)
+            ->orderBy('l.designation', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 
 //    /**
 //     * @return LieuNaissances[] Returns an array of LieuNaissances objects
